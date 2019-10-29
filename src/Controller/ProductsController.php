@@ -30,9 +30,9 @@ class ProductsController extends AbstractController
     }
 
     /**
-     * @Route("/product/{slug}-{id}", name="product.show")
+     * @Route("/product/{slug}-{id}", name="product.show", requirements={"slug":"[a-z0-9\-]*"})
      */
-    public function single(Product $product, string $slug): Response
+    public function show(Product $product, string $slug): Response
     {
 
         if($product->getSlug() !== $slug) {
