@@ -1,15 +1,36 @@
 {% extends 'base.html.twig' %}
-
-{% block title "Liste des produits" %}
+{% block title %}Liste des produits{% endblock %}
 
 {% block body %}
 
-<div class="jumbotron text-center">
-    <h1>Les produits</h1>
-</div>
+    <div class="jumbotron text-center">
+        <h1>Les produits</h1>
+    </div>
 
-<div class="container mt-4">
-    <h2>La liste</h2>
-</div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h2>La liste de produits</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <strong>{{ product.title }}</strong>
+                            <ul>
+                                <li>{{ product.description }}</li>
+                                <li>{{ product.price }}</li>
+                            </ul>
+                            <a  class="btn btn-primary"
+                                href="{{ path('product.show', {id: product.id, slug: product.slug}) }}" 
+                                role="button">Consulter</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}
