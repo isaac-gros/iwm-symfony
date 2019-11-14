@@ -26,19 +26,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for product in products %}
+                        {% if products is defined and products is not null %}
+                            {% for product in products %}
+                                <tr>
+                                    <td>{{ product.title }}</td>
+                                    <td>
+                                        <a href="{{ path('admin.product.edit', {id: product.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                                        <form action="{{ path('admin.product.delete', {id: product.id}) }}" method="POST" style="display: inline-block;">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+                                            <button class="btn btn-danger btn-sm" value="Supprimer">Supprimer</button>
+                                        </form>
+                                    </td>          
+                                </tr>
+                            {% endfor %}
+                        {% else %}
                             <tr>
-                                <td>{{ product.title }}</td>
-                                <td>
-                                    <a href="{{ path('admin.product.edit', {id: product.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
-                                    <form action="{{ path('admin.product.delete', {id: product.id}) }}" method="POST" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-                                        <button class="btn btn-danger btn-sm" value="Supprimer">Supprimer</button>
-                                    </form>
-                                </td>          
+                                <td>Aucun produit.</td>
+                                <td></td>
                             </tr>
-                        {% endfor %}
+                        {% endif %}
                     </tbody>
                 </table>
             </div>

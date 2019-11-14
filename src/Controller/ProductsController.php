@@ -30,6 +30,19 @@ class ProductsController extends AbstractController
     }
 
     /**
+     * @Route("/products/sort", name="products.sort")
+     * @return Response
+     */
+    public function order(ProductRepository $repository): Response
+    {
+        $products = $repository->orderByPrice();
+        return $this->render('products/products.html.twig', [
+            'current_menu' => 'products',
+            'products' => $products
+        ]);
+    }
+
+    /**
      * @Route("/product/{slug}-{id}", name="product.show", requirements={"slug":"[a-z0-9\-]*"})
      */
     public function show(Product $product, string $slug): Response

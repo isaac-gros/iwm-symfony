@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +16,10 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authentication_utils)
     {
         $error = $authentication_utils->getLastAuthenticationError();
-        $last_username = $authentication_utils->getLastUsername();
+        $lastUsername = $authentication_utils->getLastUsername();
         return $this->render('admin/login.html.twig',[
             'error' => $error,
-            'last_username' => $last_username
+            'last_username' => $lastUsername
         ]);
     }
 }
